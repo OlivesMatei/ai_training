@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Disease Prediction</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { width: 50%; margin: auto; padding: 20px; }
+        form { display: flex; flex-direction: column; }
+        input, button { margin: 10px 0; padding: 10px; }
+        .results { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Disease Prediction</h1>
+        <form id="prediction-form">
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" required>
+            <label for="gender">Gender (0 for Male, 1 for Female):</label>
+            <input type="number" id="gender" name="gender" required>
+            <label for="blood_pressure">Blood Pressure:</label>
+            <input type="number" id="blood_pressure" name="blood_pressure" required>
+            <label for="cholesterol">Cholesterol:</label>
+            <input type="number" id="cholesterol" name="cholesterol" required>
+            <label for="glucose">Glucose:</label>
+            <input type="number" id="glucose" name="glucose" required>
+            <!-- Add more input fields as needed -->
+            <button type="submit">Predict</button>
+        </form>
+        <div class="results" id="results"></div>
+    </div>
+    <script>
+        document.getElementById('prediction-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const response = await fetch('/predict', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    features: [
+                        parseFloat(formData.get('age')),
+                        parseFloat(formData.get('gender')),
+                        parseFloat(formData.get('blood_pressure')),
+                        parseFloat(formData.get('cholesterol')),
+                        parseFloat(formData.get('glucose'))
+                        // Add more features as needed
+                    ]
+                })
+            });
+            const result = await response.json();
+            document.getElementById('results').innerHTML = `
+                <p>Diabetes: ${result.diabetes}</p>
+                <p>Heart Disease: ${result.heart_disease}</p>
+                <p>Alzheimer: ${result.alzheimer}</p>
+            `;
+        });
+    </script>
+</body>
+</html>
