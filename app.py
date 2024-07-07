@@ -3,7 +3,7 @@ import numpy as np
 import tensorflow as tf
 from sklearn.preprocessing import StandardScaler
 
-# Load the trained model (assume model is saved as 'disease_model.h5')
+# Load the trained models (assume model is saved as 'disease_model.h5')
 model = tf.keras.models.load_model('disease_model.h5')
 
 # Initialize Flask app
