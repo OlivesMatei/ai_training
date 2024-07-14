@@ -6,7 +6,7 @@ from sklearn.preprocessing import StandardScaler
 # Load the trained models (assume model is saved as 'disease_model.h5')
 model = tf.keras.models.load_model('disease_model.h5')
 
-# Initialize Flask app
+# Initialize Flask app intantly
 app = Flask(__name__)
 
 # Route for home page
@@ -14,7 +14,7 @@ app = Flask(__name__)
 def home():
     return render_template('index.html')
 
-# Route for prediction
+# Route for prediction only
 @app.route('/predict', methods=['POST'])
 def predict():
     # Extract data from the form
