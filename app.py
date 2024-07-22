@@ -25,7 +25,7 @@ def predict():
     scaler = StandardScaler()
     features_scaled = scaler.fit_transform([features])
     
-    # Make predictions
+    # Make predictions correct
     predictions = model.predict(features_scaled)
     predictions = [int(pred[0] > 0.5) for pred in predictions]  # Convert probabilities to binary outcome
     
